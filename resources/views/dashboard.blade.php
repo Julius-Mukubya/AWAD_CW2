@@ -1,7 +1,8 @@
-<x-admin-layout>
-    <x-slot name="title">Dashboard</x-slot>
-    <x-slot name="header">Dashboard Overview</x-slot>
+@extends('layouts.admin.app')
 
+@section('title', 'Dashboard Overview')
+
+@section('content')
     @php
         $stats = [
             'total' => \App\Models\Rider::count(),
@@ -128,6 +129,4 @@
                 </div>
 
             </div>
-        
- 
-</x-admin-layout>
+@endsection

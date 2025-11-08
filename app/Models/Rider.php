@@ -10,6 +10,7 @@ class Rider extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'registration_number',
         'first_name',
         'last_name',
@@ -35,6 +36,11 @@ class Rider extends Model
         'license_issue_date' => 'date',
         'license_expiry_date' => 'date',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function stage()
     {

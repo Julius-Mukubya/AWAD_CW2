@@ -51,6 +51,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('dashboard');
+        // Redirect to homepage after account creation
+        return redirect()->route('home')->with('success', 'Account created successfully! You can now register as a rider or explore the site.');
     }
 }

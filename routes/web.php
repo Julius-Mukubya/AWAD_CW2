@@ -31,6 +31,17 @@ Route::get('/about', function () {
 Route::get('/riders', [PublicController::class, 'riders'])->name('public.riders');
 Route::get('/stages', [PublicController::class, 'stages'])->name('public.stages');
 
+// Self-registration (requires authentication)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/self-register', [PublicController::class, 'selfRegister'])->name('self-register');
+    Route::post('/self-register', [PublicController::class, 'storeSelfRegistration'])->name('self-register.store');
+    Route::put('/self-register/{rider}', [PublicController::class, 'updateSelfRegistration'])->name('self-register.update');
+    Route::post('/self-register/clear', function(\Illuminate\Http\Request $request) {
+        $request->session()->forget('check_registration');
+        return response()->json(['success' => true]);
+    })->name('self-register.clear');
+});
+
 Route::get('/directory', [PublicController::class, 'directory'])->name('public.directory');
 
 

@@ -1,19 +1,35 @@
 @extends('layouts.guest')
 
 @section('content')
-<main class="flex flex-1 flex-col">
-    <div class="container mx-auto flex flex-col gap-8 px-4 py-10">
-        <!-- Page Heading -->
-        <div class="flex flex-wrap items-center justify-between gap-4">
-            <div class="flex flex-col gap-2">
-                <p class="text-4xl font-black leading-tight tracking-[-0.033em] text-[#181711] dark:text-white">
-                    Registered Riders
-                </p>
-                <p class="text-base font-normal leading-normal text-gray-500 dark:text-gray-400">
-                    Find registered Boda Bodas and their official stages across Kampala.
-                </p>
+<main class="w-full">
+    <!-- Hero Section -->
+    <section class="w-full">
+        <div class="@container">
+            <div class="flex min-h-[400px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 items-center justify-center p-4 text-center"
+                data-alt="Kampala boda boda riders directory"
+                style='background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuAmrUfO4yBAvAl9qVaZnnuB4zKDM62F4iI_RndonH9VTjlTd6fQMkDwwFYmqMKCWXRArC_R6zd9n86DhyD4m1k5Ifucyyn1uOnxO1BGFPKBhK6IJqBcDAbx5wO2wsz_nPKf9KApfeTBrxknou3mVfj5FZ10MhpbN7roIEfvPQU1pA8l6wQe3m5wFnWWuzjPah1tGV-gM6DgqGiGMU6X5YhangmXho5WUrD1l9YrthEC5Ca881z1alLgH0VpfAhfumavn8cF2q9tcRg");'>
+                <div class="flex flex-col gap-4 max-w-3xl items-center text-center">
+                    <h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl">
+                        Registered Riders
+                    </h1>
+                    <h2 class="text-white/90 text-sm font-normal leading-normal @[480px]:text-base">
+                        Find registered Boda Bodas and their official stages across Kampala.
+                    </h2>
+                </div>
             </div>
         </div>
+    </section>
+
+    <div class="container mx-auto flex flex-col gap-8 px-4 py-10">
+        <!-- Success Message -->
+        @if(session('success'))
+        <div class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg flex items-center">
+            <svg class="w-5 h-5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span>{{ session('success') }}</span>
+        </div>
+        @endif
 
         <!-- Search and Filter Bar -->
         <div class="bg-white dark:bg-black/20 rounded-lg shadow-sm p-4">
@@ -45,20 +61,20 @@
                     </select>
                 </div>
 
-                <!-- Filter Button -->
-                <div class="flex items-end gap-2">
-                    <!-- Apply Filter Button -->
-                    <button onclick="applyFilters()" 
-                        class="w-full h-12 flex items-center justify-center gap-2 rounded-lg bg-[#f2cc0d] hover:bg-yellow-400 text-[#181711] font-medium transition-all duration-200 shadow-sm hover:shadow-md">
-                        <span class="material-symbols-outlined">filter_alt</span>
-                        <span>Filter Results</span>
-                    </button>
-                    <!-- Optional Search Button -->
-                    <button onclick="filterRiders()" 
-                        class="w-full h-12 flex items-center justify-center rounded-lg bg-[#f2cc0d] hover:bg-yellow-400 text-[#181711] font-medium transition-all duration-200 shadow-sm hover:shadow-md">
-                        <span class="material-symbols-outlined">search</span>
-                        <span>Search</span>
-                    </button>
+                <!-- Sort Dropdown -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Sort By</label>
+                    <select id="sort-select" onchange="sortRiders(this.value)" 
+                        class="w-full h-12 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-black/20 text-[#181711] dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <option value="reg-asc">Reg. Number (A-Z)</option>
+                        <option value="reg-desc">Reg. Number (Z-A)</option>
+                        <option value="name-asc">Name (A-Z)</option>
+                        <option value="name-desc">Name (Z-A)</option>
+                        <option value="stage-asc">Stage (A-Z)</option>
+                        <option value="stage-desc">Stage (Z-A)</option>
+                        <option value="status-asc">Status (A-Z)</option>
+                        <option value="status-desc">Status (Z-A)</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -68,11 +84,31 @@
             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead class="bg-gray-50 dark:bg-gray-800">
                     <tr>
-                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Reg. Number</th>
-                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Name</th>
-                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Stage</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700" onclick="sortByColumn('reg')">
+                            <div class="flex items-center gap-2">
+                                Reg. Number
+                                <span class="material-symbols-outlined text-sm">unfold_more</span>
+                            </div>
+                        </th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700" onclick="sortByColumn('name')">
+                            <div class="flex items-center gap-2">
+                                Name
+                                <span class="material-symbols-outlined text-sm">unfold_more</span>
+                            </div>
+                        </th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700" onclick="sortByColumn('stage')">
+                            <div class="flex items-center gap-2">
+                                Stage
+                                <span class="material-symbols-outlined text-sm">unfold_more</span>
+                            </div>
+                        </th>
                         <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Phone</th>
-                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Status</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700" onclick="sortByColumn('status')">
+                            <div class="flex items-center gap-2">
+                                Status
+                                <span class="material-symbols-outlined text-sm">unfold_more</span>
+                            </div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody id="riders-grid" class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -80,13 +116,21 @@
                     <tr class="rider-card" 
                         data-reg="{{ strtolower($rider->registration_number) }}" 
                         data-name="{{ strtolower($rider->first_name . ' ' . $rider->last_name) }}" 
-                        data-stage="{{ $rider->stage_id }}">
+                        data-stage="{{ $rider->stage_id }}"
+                        data-stage-name="{{ strtolower($rider->stage->name) }}"
+                        data-status="{{ strtolower($rider->status) }}">
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">{{ $rider->registration_number }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{{ $rider->first_name }} {{ $rider->last_name }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">{{ $rider->stage->name }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-primary"><a href="tel:{{ $rider->phone_number }}">{{ $rider->phone_number }}</a></td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-3 py-1 rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs font-semibold">Active</span>
+                            @if($rider->status === 'active')
+                                <span class="px-3 py-1 rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs font-semibold">Active</span>
+                            @elseif($rider->status === 'pending')
+                                <span class="px-3 py-1 rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 text-xs font-semibold">Pending</span>
+                            @else
+                                <span class="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 text-xs font-semibold">{{ ucfirst($rider->status) }}</span>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
@@ -105,8 +149,12 @@
 
 <script>
 let currentStageFilter = '{{ request("stage") ?? "" }}';
+let currentSortColumn = 'reg';
+let currentSortDirection = 'asc';
 const searchInput = document.getElementById('riders-search');
 const stageSelect = document.getElementById('stage-select');
+const sortSelect = document.getElementById('sort-select');
+const ridersGrid = document.getElementById('riders-grid');
 
 function filterRiders() {
     const searchTerm = searchInput.value.toLowerCase();
@@ -130,6 +178,65 @@ function filterRiders() {
     });
 
     document.getElementById('no-results').style.display = (visibleCount === 0 && riderCards.length > 0) ? 'flex' : 'none';
+}
+
+function sortRiders(sortValue) {
+    const [column, direction] = sortValue.split('-');
+    currentSortColumn = column;
+    currentSortDirection = direction;
+    
+    const rows = Array.from(document.querySelectorAll('.rider-card'));
+    
+    rows.sort((a, b) => {
+        let aValue, bValue;
+        
+        switch(column) {
+            case 'reg':
+                aValue = a.dataset.reg;
+                bValue = b.dataset.reg;
+                break;
+            case 'name':
+                aValue = a.dataset.name;
+                bValue = b.dataset.name;
+                break;
+            case 'stage':
+                aValue = a.dataset.stageName;
+                bValue = b.dataset.stageName;
+                break;
+            case 'status':
+                aValue = a.dataset.status;
+                bValue = b.dataset.status;
+                break;
+            default:
+                return 0;
+        }
+        
+        if (direction === 'asc') {
+            return aValue.localeCompare(bValue);
+        } else {
+            return bValue.localeCompare(aValue);
+        }
+    });
+    
+    // Re-append rows in sorted order
+    rows.forEach(row => ridersGrid.appendChild(row));
+    
+    // Re-apply filters after sorting
+    filterRiders();
+}
+
+function sortByColumn(column) {
+    // Toggle direction if clicking the same column
+    if (currentSortColumn === column) {
+        currentSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+        currentSortColumn = column;
+        currentSortDirection = 'asc';
+    }
+    
+    const sortValue = `${column}-${currentSortDirection}`;
+    sortSelect.value = sortValue;
+    sortRiders(sortValue);
 }
 
 function filterByStage(stageId) {

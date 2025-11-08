@@ -1,6 +1,8 @@
-<x-admin-layout>
-    <x-slot name="title">Riders Report</x-slot>
-    <x-slot name="header">Riders Report</x-slot>
+@extends('layouts.admin.app')
+
+@section('title', '')
+
+@section('content')
 
     <div class="space-y-6">
         <!-- Page Header -->
@@ -237,4 +239,4 @@
             </div>
         </div>
     </div>
-</x-admin-layout>
+@endsection

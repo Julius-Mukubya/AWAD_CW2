@@ -1,6 +1,8 @@
-<x-admin-layout>
-    <x-slot name="title">Settings</x-slot>
-    <x-slot name="header">Settings</x-slot>
+@extends('layouts.admin.app')
+
+@section('title', '')
+
+@section('content')
 
     <div class="space-y-6">
         <!-- Page Header -->
@@ -99,4 +101,4 @@
 
         </div>
     </div>
-</x-admin-layout>
+@endsection

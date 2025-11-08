@@ -1,6 +1,8 @@
-<x-admin-layout>
-    <x-slot name="title">{{ $rider->first_name }} {{ $rider->last_name }}</x-slot>
-    <x-slot name="header">Rider Details</x-slot>
+@extends('layouts.admin.app')
+
+@section('title', '')
+
+@section('content')
 
     <div class="space-y-6">
         <!-- Page Header -->
@@ -286,4 +288,4 @@
             </div>
         </div>
     </div>
-</x-admin-layout>
+@endsection

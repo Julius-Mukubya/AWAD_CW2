@@ -94,14 +94,6 @@
                     <p class="text-gray-500 dark:text-gray-400">Enter your credentials to access your dashboard</p>
                 </div>
 
-                <!-- Session Status -->
-                @if (session('status'))
-                <div
-                    class="mb-4 p-4 rounded-lg bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-700">
-                    <p class="text-sm text-green-800 dark:text-green-200">{{ session('status') }}</p>
-                </div>
-                @endif
-
                 <!-- Validation Errors -->
                 @if ($errors->any())
                 <div class="mb-4 p-4 rounded-lg bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700">

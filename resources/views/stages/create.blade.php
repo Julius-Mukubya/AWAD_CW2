@@ -1,6 +1,10 @@
-<x-admin-layout>
-    <x-slot name="title">Add New Stage</x-slot>
-    <x-slot name="header">
+@extends('layouts.admin.app')
+
+@section('title', 'Add New Stage')
+
+@section('content')
+    <!-- Page Header -->
+    <div class="mb-6">
         <div class="flex items-center justify-between">
             <div>
                 <h2 class="text-2xl font-bold text-gray-900">Add New Stage</h2>
@@ -13,10 +17,9 @@
                 Back to Stages
             </a>
         </div>
-    </x-slot>
+    </div>
 
-    <div class="py-8">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto">
             <form action="{{ route('stages.store') }}" method="POST">
                 @csrf
 
@@ -108,4 +111,4 @@
             </form>
         </div>
     </div>
-</x-admin-layout>
+@endsection

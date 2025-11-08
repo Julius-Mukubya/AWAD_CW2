@@ -1,6 +1,8 @@
-<x-admin-layout>
-    <x-slot name="title">Riders Management</x-slot>
-    <x-slot name="header">Riders</x-slot>
+@extends('layouts.admin.app')
+
+@section('title', '')
+
+@section('content')
 
            <!-- Page Content -->
             <div class="space-y-6">
@@ -200,7 +202,7 @@
             </div>
         
     
-</x-admin-layout>
+@endsection
 
 @push('scripts')
 <script>

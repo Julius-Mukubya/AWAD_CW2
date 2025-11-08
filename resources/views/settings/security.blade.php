@@ -1,6 +1,8 @@
-<x-admin-layout>
-    <x-slot name="title">Security Settings</x-slot>
-    <x-slot name="header">Security Settings</x-slot>
+@extends('layouts.admin.app')
+
+@section('title', '')
+
+@section('content')
 
     <div class="max-w-3xl mx-auto space-y-6">
         <!-- Page Header -->
@@ -113,4 +115,4 @@
 
         </div>
     </div>
-</x-admin-layout>
+@endsection

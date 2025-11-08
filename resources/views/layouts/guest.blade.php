@@ -68,19 +68,31 @@
                         </div>
 
                         <!-- Desktop Nav -->
-                        <nav class="hidden md:flex flex-1 justify-end items-center gap-8">
-                            <a class="text-sm font-medium text-text-light hover:text-primary" href="/">Home</a>
-                            <a class="text-sm font-medium text-text-light hover:text-primary" href="/about">About</a>
-                            <a class="text-sm font-medium text-text-light hover:text-primary" href="/riders">Riders</a>
+                        <nav class="hidden md:flex flex-1 justify-end items-center gap-4">
+                            <a class="text-sm font-medium text-text-light hover:text-primary px-3" href="/">Home</a>
+                            <a class="text-sm font-medium text-text-light hover:text-primary px-3" href="/about">About</a>
+                            <a class="text-sm font-medium text-text-light hover:text-primary px-3" href="/riders">Riders</a>
                             @if(Route::has('login'))
                             @auth
-                            <a class="text-sm font-medium text-text-light hover:text-primary"
+                            @if(auth()->user()->isAdmin())
+                            <a class="text-sm font-medium text-text-light hover:text-primary px-3"
                                 href="{{ url('/dashboard') }}">Dashboard</a>
+                            @endif
+                            <a class="text-sm font-medium text-text-light hover:text-primary px-3"
+                                href="{{ route('self-register') }}">Self-Register</a>
+                            <form method="POST" action="{{ route('logout') }}" class="inline">
+                                @csrf
+                                <button type="submit" class="inline-flex items-center px-4 py-2 bg-[#f2cc0d] text-[#181711] rounded-lg hover:bg-yellow-400 font-semibold transition shadow-sm">
+                                    Logout
+                                </button>
+                            </form>
                             @else
-                            <a class="text-sm font-medium text-text-light hover:text-primary"
+                            <a class="text-sm font-medium text-text-light hover:text-primary px-3"
+                                href="{{ route('self-register') }}">Self-Register</a>
+                            <a class="inline-flex items-center px-4 py-2 bg-[#f2cc0d] text-[#181711] rounded-lg hover:bg-yellow-400 font-semibold transition shadow-sm"
                                 href="{{ route('login') }}">Login</a>
-                            <a class="text-sm font-medium text-text-light hover:text-primary"
-                                href="{{ route('register') }}">Register</a>
+                            <a class="inline-flex items-center px-4 py-2 bg-[#f2cc0d] text-[#181711] rounded-lg hover:bg-yellow-400 font-semibold transition shadow-sm"
+                                href="{{ route('register') }}">Sign Up</a>
                             @endauth
                             @endif
                         </nav>
@@ -104,13 +116,25 @@
                             href="/riders">Riders</a>
                         @if(Route::has('login'))
                         @auth
+                        @if(auth()->user()->isAdmin())
                         <a class="block text-sm font-medium text-text-light dark:text-text-dark hover:text-primary"
                             href="{{ url('/dashboard') }}">Dashboard</a>
+                        @endif
+                        <a class="block text-sm font-medium text-text-light dark:text-text-dark hover:text-primary"
+                            href="{{ route('self-register') }}">Self-Register</a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="block w-full px-4 py-2 bg-[#f2cc0d] text-[#181711] rounded-lg hover:bg-yellow-400 font-semibold transition shadow-sm text-center">
+                                Logout
+                            </button>
+                        </form>
                         @else
                         <a class="block text-sm font-medium text-text-light dark:text-text-dark hover:text-primary"
+                            href="{{ route('self-register') }}">Self-Register</a>
+                        <a class="block px-4 py-2 bg-[#f2cc0d] text-[#181711] rounded-lg hover:bg-yellow-400 font-semibold transition shadow-sm text-center"
                             href="{{ route('login') }}">Login</a>
-                        <a class="block text-sm font-medium text-text-light dark:text-text-dark hover:text-primary"
-                            href="{{ route('register') }}">Register</a>
+                        <a class="block px-4 py-2 bg-[#f2cc0d] text-[#181711] rounded-lg hover:bg-yellow-400 font-semibold transition shadow-sm text-center"
+                            href="{{ route('register') }}">Sign Up</a>
                         @endauth
                         @endif
                     </nav>
@@ -159,8 +183,9 @@
                             <div>
                                 <h3 class="text-lg font-bold mb-4 text-black">Support</h3>
                                 <ul class="space-y-2 text-gray-700">
+                                    <li><a href="{{ route('self-register') }}" class="hover:text-yellow-500 transition">Self-Register</a></li>
                                     <li><a href="{{ route('login') }}" class="hover:text-yellow-500 transition">Login</a></li>
-                                    <li><a href="{{ route('register') }}" class="hover:text-yellow-500 transition">Register</a></li>
+                                    <li><a href="{{ route('register') }}" class="hover:text-yellow-500 transition">Sign Up</a></li>
                                     <li><a href="#" class="hover:text-yellow-500 transition">Privacy Policy</a></li>
                                     <li><a href="#" class="hover:text-yellow-500 transition">Contact Us</a></li>
                                 </ul>

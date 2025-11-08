@@ -94,6 +94,15 @@
                     </svg>
                     Settings
                 </a>
+
+                <!-- Back to Main Site -->
+                <a href="{{ route('home') }}" 
+                   class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg mt-4 transition duration-200 border border-gray-200">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    Back to Main Site
+                </a>
             </nav>
             
             <!-- User Profile at Bottom -->
@@ -122,7 +131,7 @@
                         </svg>
                     </button>
                     
-                    <h2 class="text-xl lg:text-2xl font-bold text-gray-900">{{ $header ?? 'Dashboard' }}</h2>
+                    <h2 class="text-xl lg:text-2xl font-bold text-gray-900">@yield('title', 'Dashboard')</h2>
                     <div class="flex items-center space-x-2 lg:space-x-4">
                         <button class="p-2 text-gray-600 hover:text-gray-900">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -143,7 +152,7 @@
             
             <!-- Page Content -->
             <div class="p-4 lg:p-8 flex-1">
-                {{ $slot }}
+                @yield('content')
             </div>
         </div>
     </div>

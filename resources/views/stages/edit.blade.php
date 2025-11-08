@@ -1,6 +1,8 @@
-<x-admin-layout>
-    <x-slot name="title">Edit Stage</x-slot>
-    <x-slot name="header">Edit Stage</x-slot>
+@extends('layouts.admin.app')
+
+@section('title', '')
+
+@section('content')
 
     <div class="max-w-3xl mx-auto space-y-6">
         <!-- Page Header -->
@@ -108,4 +110,4 @@
             </form>
         </div>
     </div>
-</x-admin-layout>
+@endsection

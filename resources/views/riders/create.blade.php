@@ -1,6 +1,10 @@
-<x-admin-layout>
-    <x-slot name="title">Register New Rider</x-slot>
-    <x-slot name="header">
+@extends('layouts.admin.app')
+
+@section('title', 'Register New Rider')
+
+@section('content')
+    <!-- Page Header -->
+    <div class="mb-6">
         <div class="flex items-center justify-between">
             <div>
                 <h2 class="text-2xl font-bold text-gray-900">Register New Rider</h2>
@@ -13,10 +17,9 @@
                 Back to Riders
             </a>
         </div>
-    </x-slot>
+    </div>
 
-    <div class="py-8">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto">
             <form action="{{ route('riders.store') }}" method="POST" class="space-y-6">
                 @csrf
 
@@ -527,4 +530,4 @@
             </form>
         </div>
     </div>
-</x-admin-layout>
+@endsection

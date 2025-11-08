@@ -1,6 +1,8 @@
-<x-admin-layout>
-    <x-slot name="title">System Settings</x-slot>
-    <x-slot name="header">System Settings</x-slot>
+@extends('layouts.admin.app')
+
+@section('title', '')
+
+@section('content')
 
     <div class="max-w-4xl mx-auto space-y-6">
         <!-- Page Header -->
@@ -158,4 +160,4 @@
 
         </div>
     </div>
-</x-admin-layout>
+@endsection

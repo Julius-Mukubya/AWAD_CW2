@@ -95,39 +95,6 @@
             </div>
         </section>
 
-        <!-- How to Register Section -->
-        <section class="mb-12 md:mb-20">
-            <h2
-                class="text-gray-900 dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] pb-8 pt-5 text-center">
-                How to Register</h2>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-0 relative">
-                <div
-                    class="absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 dark:bg-gray-700 -translate-y-4 hidden md:block">
-                </div>
-                <div class="absolute top-1/2 left-0 w-full h-0.5 bg-yellow-500 dark:bg-yellow-400 -translate-y-4 hidden md:block"
-                    style="width: 0%;"></div>
-
-                @foreach (['Fill Online Form', 'Submit Documents', 'Payment', 'Get ID'] as $i => $step)
-                <div class="flex items-start md:flex-col md:items-center md:text-center relative">
-                    <div
-                        class="flex items-center justify-center size-8 rounded-full bg-yellow-500 text-white font-bold text-sm mr-4 md:mr-0 md:mb-4 z-10">
-                        {{ $i + 1 }}
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-gray-900 dark:text-white mb-1">{{ $step }}</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">
-                            @if($i == 0) Complete the digital registration form with your details.
-                            @elseif($i == 1) Upload the required personal and motorcycle documents.
-                            @elseif($i == 2) Pay the membership fee through our secure portal.
-                            @else Receive your official KBBA member identification card.
-                            @endif
-                        </p>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </section>
-
         <!-- Registration Requirements Section -->
         <section class="mb-12 md:mb-20">
             <h2
